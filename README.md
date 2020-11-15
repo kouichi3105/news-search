@@ -1,8 +1,8 @@
 # news-search
 ## 前提条件
-Pythonがインストールされていること。
+Pythonがインストールされていること。(Pythonをインストールする際、パスを通しておくこと)
 
-OSがWindows (.batファイルでプログラムを自動で起動するため)
+OSがWindows。(.batファイルでプログラムを自動で起動するため)
 
 ## How to Use
 **STEP1：pip installで必要なライブラリをインストールするため、「pip-install.bat」をダブルクリックする。**
