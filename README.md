@@ -18,4 +18,4 @@ OSがWindows (.batファイルでプログラムを自動で起動するため)
 
 - STEP3.　「NewsSearch.bat」をダブルクリックする。
 
-現在はCloudWatchとZDNETから記事を検索し、キーワードに合致した記事のタイトルとリンクを「HybridIT.xlsx」に保存する。
+現在はCloudWatchとZDNETから記事を検索し、キーワードに合致した記事のタイトルとリンクを「HybridIT.xlsx」に保存している。
