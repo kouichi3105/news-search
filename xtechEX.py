@@ -7,14 +7,14 @@ if os.path.exists('HybridIT.xlsx'):
     wb = px.load_workbook('HybridIT.xlsx')
     sheetname = wb.sheetnames
     for name in sheetname:
-        if 'xTech' in name:
-            wb.remove(wb['xTech'])
-    wb.create_sheet(title='xTech')
-    ws = wb['xTech']
+        if 'xtech' in name:
+            wb.remove(wb['xtech'])
+    wb.create_sheet(title='xtech')
+    ws = wb['xtech']
 else:
     wb = px.Workbook()
     ws = wb.active
-    ws.title = 'xTech'
+    ws.title = 'xtech'
 
 title_data = dict()
 titleList = list()
