@@ -3,6 +3,11 @@ import requests
 import openpyxl as px
 import os
 
+title_data = dict()
+titleList = list()
+checklist = list()
+proxy_data = dict()
+
 if os.path.exists('HybridIT.xlsx'):
     wb = px.load_workbook('HybridIT.xlsx')
     sheetname = wb.sheetnames
@@ -16,11 +21,22 @@ else:
     ws = wb.active
     ws.title = 'CloudWatch'
 
-title_data = dict()
-titleList = list()
-checklist = list()
+if os.path.exists('proxy.txt'):
+    f = open('proxy.txt', 'r', encoding='utf-8')
+    proxies = f.readlines()
+    if not proxies:
+        proxy_data = None
+    else:
+        proxy_data["http"] = proxies[0].strip()
+        proxy_data["https"] = proxies[1].strip()
+else:
+    proxy_data = None
 
-res = requests.get('https://cloud.watch.impress.co.jp/')
+if proxy_data is not None:
+    res = requests.get('https://cloud.watch.impress.co.jp/' , proxies=proxy_data)
+else:
+    res = requests.get('https://cloud.watch.impress.co.jp/')
+    
 res.raise_for_status()
 soup = BeautifulSoup(res.text, "html.parser")
 titles = soup.select('.title a')
@@ -88,4 +104,3 @@ for i in range(len(titleList)):
                         k1 +=3
 
 wb.save('HybridIT.xlsx')
-

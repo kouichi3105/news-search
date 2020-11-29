@@ -3,6 +3,11 @@ import requests
 import openpyxl as px
 import os
 
+title_data = dict()
+titleList = list()
+checklist = list()
+proxy_data = dict()
+
 if os.path.exists('HybridIT.xlsx'):
     wb = px.load_workbook('HybridIT.xlsx')
     sheetname = wb.sheetnames
@@ -17,10 +22,22 @@ else:
     ws.title = 'ZDNET'
 ic = 1
 
-title_data = dict()
-titleList = list()
+if os.path.exists('proxy.txt'):
+    f = open('proxy.txt', 'r', encoding='utf-8')
+    proxies = f.readlines()
+    if not proxies:
+        proxy_data = None
+    else:
+        proxy_data["http"] = proxies[0].strip()
+        proxy_data["https"] = proxies[1].strip()
+else:
+    proxy_data = None
 
-res = requests.get('https://japan.zdnet.com/')
+if proxy_data is not None:
+    res = requests.get('https://japan.zdnet.com/' , proxies=proxy_data)
+else:
+    res = requests.get('https://japan.zdnet.com/')
+
 res.raise_for_status()
 soup = BeautifulSoup(res.text, "html.parser")
 titles = soup.select('.pg-container-main a')
@@ -28,8 +45,6 @@ titles = soup.select('.pg-container-main a')
 f = open('keywords.txt', 'r', encoding='utf-8')
 keywords = f.readlines()
 ks = len(keywords)
-print(keywords)
-print(ks)
 
 k1 = 1
 kcn = 1
@@ -47,7 +62,6 @@ for title in titles:
     title_data["URL"] = link
     title_data["content"] = None
     titleList.append(title_data)
-    print(title_data)
 
 for i in range(len(titleList)):
     link = titleList[i]["URL"]

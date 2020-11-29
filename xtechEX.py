@@ -3,6 +3,11 @@ import requests
 import openpyxl as px
 import os
 
+title_data = dict()
+titleList = list()
+checklist = list()
+proxy_data = dict()
+
 if os.path.exists('HybridIT.xlsx'):
     wb = px.load_workbook('HybridIT.xlsx')
     sheetname = wb.sheetnames
@@ -16,11 +21,22 @@ else:
     ws = wb.active
     ws.title = 'xtech'
 
-title_data = dict()
-titleList = list()
-checklist = list()
+if os.path.exists('proxy.txt'):
+    f = open('proxy.txt', 'r', encoding='utf-8')
+    proxies = f.readlines()
+    if not proxies:
+        proxy_data = None
+    else:
+        proxy_data["http"] = proxies[0].strip()
+        proxy_data["https"] = proxies[1].strip()
+else:
+    proxy_data = None
 
-res = requests.get('https://xtech.nikkei.com/')
+if proxy_data is not None:
+    res = requests.get('https://xtech.nikkei.com/' , proxies=proxy_data)
+else:
+    res = requests.get('https://xtech.nikkei.com/')
+
 res.raise_for_status()
 soup = BeautifulSoup(res.text, "html.parser")
 titles = soup.select('.c-linkArrowList_item' + ' a')
