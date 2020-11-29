@@ -16,7 +16,7 @@ OS:Windows (.batファイルでプログラムを自動で起動するため)
 
 (複数のキーワードを検索したい場合、ハイブリッドITの下にキーワードを記入するとできるが、テストが不十分なため非推奨。)
 
-**STEP2.5:proxy.txtにプロキシ設定を記入(プロキシ環境で使用する場合) 
+**STEP2.5：proxy.txtにプロキシ設定を記入(プロキシ環境で使用する場合)**
 >"http://yourProxy:proxyPort"  
 >"https://yourProxy:proxyPort" 
 
