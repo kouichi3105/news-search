@@ -22,22 +22,7 @@ else:
     ws.title = 'ZDNET'
 ic = 1
 
-if os.path.exists('proxy.txt'):
-    f = open('proxy.txt', 'r', encoding='utf-8')
-    proxies = f.readlines()
-    if not proxies:
-        proxy_data = None
-    else:
-        proxy_data["http"] = proxies[0].strip()
-        proxy_data["https"] = proxies[1].strip()
-else:
-    proxy_data = None
-
-if proxy_data is not None:
-    res = requests.get('https://japan.zdnet.com/' , proxies=proxy_data)
-else:
-    res = requests.get('https://japan.zdnet.com/')
-
+res = requests.get('https://japan.zdnet.com/')
 res.raise_for_status()
 soup = BeautifulSoup(res.text, "html.parser")
 titles = soup.select('.pg-container-main a')
